@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/toaster";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Quiz from "./pages/Quiz";
+import About from "./pages/About";
 import Navigation from "./components/Navigation";
 
 function Router() {
@@ -19,6 +20,7 @@ function Router() {
           <Route path="/" component={Home} />
           <Route path="/profile" component={Profile} />
           <Route path="/quiz" component={Quiz} />
+          <Route path="/about" component={About} />
           <Route>404 Page Not Found</Route>
         </Switch>
       </main>

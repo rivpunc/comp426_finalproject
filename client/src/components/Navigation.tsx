@@ -44,6 +44,11 @@ export default function Navigation() {
                 Quiz
               </Button>
             </Link>
+            <Link href="/about">
+              <Button variant={location === "/about" ? "default" : "ghost"}>
+                About
+              </Button>
+            </Link>
             {isLoggedIn && (
               <Link href="/profile">
                 <Button variant={location === "/profile" ? "default" : "ghost"}>
