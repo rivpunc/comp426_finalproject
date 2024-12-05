@@ -53,14 +53,20 @@
 
 ## 3. Technical Deep Dive (5-6 minutes)
 
-### Modern Architecture
-"Our application architecture prioritizes performance and user experience. We've built a responsive, fast-loading platform that works smoothly across all devices. The architecture ensures that data is loaded efficiently, animations run smoothly, and user interactions feel instantaneous."
+### Authentication Implementation
+"Our authentication system uses Passport.js with a local strategy, providing secure user management without the complexity of external providers. The implementation includes session management through express-session with a MemoryStore for development, configurable for production environments. User credentials are validated against our PostgreSQL database, with session persistence ensuring a smooth user experience across page refreshes."
 
-### Data Management
-"The platform's data management system ensures that whale facts, user preferences, and quiz progress are always in sync. We use intelligent caching to make the application feel lightning-fast while maintaining data accuracy. This system allows us to deliver content quickly while ensuring that saved facts and preferences are always up to date."
+### Database Architecture
+"We utilize PostgreSQL with Drizzle ORM for robust data management. Our schema design includes carefully structured relationships between users, whale facts, and saved facts. The fact retrieval system implements efficient query optimization, using techniques like eager loading relationships and smart indexing. Our daily fact rotation system uses a deterministic algorithm based on the current date, ensuring consistent content delivery while maintaining performance."
 
-### State and Cache Management
-"Our state management approach keeps the interface responsive and consistent across all features. Whether users are saving facts, taking quizzes, or updating preferences, the system ensures that changes are reflected immediately and reliably throughout the application."
+### State Management
+"TanStack Query powers our frontend data management, providing automatic background refetching and optimistic updates. For example, when users save a whale fact, we immediately update the UI while the request processes in the background. Our cache invalidation strategy is context-aware - saving a fact triggers targeted invalidation of the saved facts query, ensuring data consistency without unnecessary refetches."
+
+### Frontend Architecture
+"The React component structure follows a clear hierarchy, with shared UI components from Shadcn/UI enhanced by our ocean-themed customizations. Custom hooks like useToast manage global notifications, while components like WhaleFact and FactsBrowser demonstrate our modular approach. Tailwind CSS provides consistent styling with custom animations, including our signature bubble effect."
+
+### API Design
+"Our RESTful API follows a predictable pattern with endpoints for authentication, fact management, and user preferences. Error handling implements a consistent structure across all routes, with specific error messages and appropriate status codes. Request validation uses Zod schemas shared between frontend and backend, ensuring type safety throughout the application stack."
 
 ## 4. Development Challenges (2-3 minutes)
 
