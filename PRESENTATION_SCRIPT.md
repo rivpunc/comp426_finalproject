@@ -12,188 +12,75 @@
 - Personal progress tracking and customization
 
 ### Technical Stack Overview
-"Let me briefly walk you through our modern tech stack:
-- Frontend: React with TypeScript, TailwindCSS, and Shadcn/UI
-- Backend: Express server with PostgreSQL database
-- State Management: TanStack Query for efficient data handling
-- Authentication: Passport.js for secure user management"
+"Our platform is built with modern, reliable technologies that ensure a smooth and responsive experience for our users. We've carefully selected tools that allow us to create beautiful interfaces, manage data efficiently, and provide secure user authentication."
 
 ## 2. Feature Demonstrations (10-12 minutes)
 
 ### a. Daily Whale Facts (2-3 min)
 
-#### Bubble Animation Demo
-"First, let's look at our signature bubble animation that creates an immersive ocean atmosphere:"
-```typescript
-// BubbleEffect.tsx
-const animate = () => {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
-  bubbles.current.forEach((bubble, index) => {
-    ctx.beginPath();
-    ctx.arc(bubble.x, bubble.y, bubble.size, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
-    ctx.fill();
-    
-    bubble.y -= bubble.speed;
-    
-    if (bubble.y < -bubble.size) {
-      bubbles.current[index] = createBubble();
-    }
-  });
-  
-  requestAnimationFrame(animate);
-};
-```
+#### Bubble Animation
+"Our signature bubble animation creates a dynamic ocean atmosphere by simulating realistic bubble movements. Each bubble is carefully animated with varying sizes and speeds, creating a natural underwater effect that enhances the user experience. The bubbles float gracefully upward, mimicking the serene environment of the ocean depths."
 
 #### Fact Rotation System
-"Our fact rotation system ensures fresh content daily:"
-```typescript
-// factService.ts
-async function getDailyFact() {
-  const facts = await db.query.whaleFacts.findMany();
-  const today = new Date();
-  const index = today.getDate() % facts.length;
-  return facts[index];
-}
-```
+"Our fact rotation system ensures that users receive fresh, engaging content every day. The system intelligently cycles through our curated collection of whale facts, presenting them with beautiful imagery and ensuring that users always have something new to learn. This daily rotation keeps users coming back and maintains engagement with the platform."
 
-#### Save Functionality Demo
-"Users can save their favorite facts with a simple click:"
-[Demonstrate the heart icon interaction and saving animation]
+#### Save Functionality
+"Users can easily save their favorite facts with our intuitive heart-based bookmarking system. When a user finds a particularly interesting fact, they can click the heart icon, which responds with a smooth animation and saves the fact to their personal collection. This feature helps users build their own library of whale knowledge and revisit their favorite facts anytime."
 
 ### b. Browse More Facts (2-3 min)
 
 #### Modal Interaction
-"The 'Browse More Facts' feature provides access to our complete collection:"
-```typescript
-// FactsBrowser.tsx
-<Dialog open={open} onOpenChange={setOpen}>
-  <DialogTrigger asChild>
-    <Button className="w-full py-6 text-lg font-semibold bg-gradient-to-r from-primary to-secondary">
-      Browse More Facts
-    </Button>
-  </DialogTrigger>
-  <DialogContent className="max-w-3xl h-[80vh]">
-    // Content rendering
-  </DialogContent>
-</Dialog>
-```
+"The 'Browse More Facts' feature provides a beautiful, immersive way to explore our complete collection of whale facts. When users click the elegantly designed button, a full-screen modal opens smoothly, presenting a scrollable collection of facts with stunning whale imagery. The interface is designed to be both beautiful and functional, making exploration a joy."
 
 #### UI Animations
-"Notice the smooth transitions and hover effects that make browsing engaging:"
-```css
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-  100% { transform: translateY(0px); }
-}
-```
+"Every interaction in our interface is enhanced with subtle, fluid animations that make the experience feel natural and engaging. From the gentle hover effects on buttons to the smooth transitions between facts, these animations create a sense of depth and movement that reflects the ocean theme. The result is an interface that's not just functional, but delightful to use."
 
 ### c. Quiz System (2-3 min)
 
 #### Question Flow
-"The quiz system presents random questions with immediate feedback:"
-```typescript
-// Quiz.tsx
-const handleAnswer = (answer: string) => {
-  const correct = answer === questions[currentQuestion].correctAnswer;
-  if (correct) {
-    setScore(score + 1);
-    toast({
-      title: "Correct!",
-      description: "Great job!",
-      variant: "default",
-    });
-  }
-};
-```
+"Our quiz system makes learning interactive and fun. Questions are presented one at a time in a clean, focused interface. Users receive immediate, encouraging feedback on their answers, with correct responses celebrated and wrong answers turned into learning opportunities. The progression through questions is smooth and engaging, maintaining user interest throughout the quiz."
 
 #### Scoring System
-"Let's look at how we track and display progress:"
-[Demonstrate progress bar and score calculation]
+"Progress through the quiz is visually represented with an intuitive progress bar that fills as users advance. The scoring system provides immediate feedback and encouragement, helping users track their learning journey. At the end of each quiz, users receive a comprehensive summary of their performance, celebrating their knowledge of whale facts."
 
 ### d. User System (2-3 min)
 
 #### Authentication Flow
-"Our authentication system provides a seamless experience:"
-```typescript
-// AuthForms.tsx
-const handleAuth = async (data: InsertUser, isLogin: boolean) => {
-  const endpoint = isLogin ? "/api/auth/login" : "/api/auth/register";
-  const response = await fetch(endpoint, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
-};
-```
+"Our user system provides a seamless, secure experience for creating and accessing accounts. The sign-up process is straightforward and welcoming, while the login system remembers returning users and gets them back to learning quickly. Security is robust but unobtrusive, protecting user data without creating friction."
 
 #### Profile Features
-"Users can customize their experience through preferences:"
-[Show preferences toggles and saved facts collection]
+"Users can personalize their WhaleWatch experience through an intuitive preferences system. They can customize notifications, manage their saved facts collection, and track their quiz progress. The profile page serves as a personal dashboard where users can see their learning journey and manage their favorite whale facts."
 
 ## 3. Technical Deep Dive (5-6 minutes)
 
-### React + TypeScript Architecture
-"Our component structure ensures maintainability and type safety:"
-```typescript
-// Example of our type-safe components
-interface WhaleFactProps {
-  id: number;
-  fact: string;
-  imageUrl: string;
-  isSaved?: boolean;
-  onSaveChange?: (saved: boolean) => void;
-}
-```
+### Modern Architecture
+"Our application architecture prioritizes performance and user experience. We've built a responsive, fast-loading platform that works smoothly across all devices. The architecture ensures that data is loaded efficiently, animations run smoothly, and user interactions feel instantaneous."
 
-### Database Schema Design
-"The database schema supports all core features efficiently:"
-```typescript
-// schema.ts highlights
-export const whaleFacts = pgTable("whale_facts", {
-  id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  fact: text("fact").notNull(),
-  imageUrl: text("image_url").notNull(),
-  source: text("source"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
-```
+### Data Management
+"The platform's data management system ensures that whale facts, user preferences, and quiz progress are always in sync. We use intelligent caching to make the application feel lightning-fast while maintaining data accuracy. This system allows us to deliver content quickly while ensuring that saved facts and preferences are always up to date."
 
-### State Management
-"TanStack Query handles data fetching and caching:"
-```typescript
-const { data: fact, isLoading } = useQuery({
-  queryKey: ["dailyFact"],
-  queryFn: async () => {
-    const response = await fetch("/api/facts/daily");
-    return response.json();
-  },
-});
-```
+### State and Cache Management
+"Our state management approach keeps the interface responsive and consistent across all features. Whether users are saving facts, taking quizzes, or updating preferences, the system ensures that changes are reflected immediately and reliably throughout the application."
 
 ## 4. Development Challenges (2-3 minutes)
 
 ### Key Technical Decisions
-- Choosing TanStack Query over Redux for simpler state management
-- Implementing custom bubble animation for performance
-- Database schema design for extensibility
+- Optimizing animations for smooth performance across devices
+- Creating an intuitive, accessible user interface
+- Implementing efficient data management for quick fact retrieval
+- Ensuring secure but user-friendly authentication
 
 ### Problem-Solving Approaches
-- Modular component architecture
-- Type-safe development practices
-- Performance optimization strategies
+- User-centered design process
+- Performance-first development methodology
+- Continuous testing and refinement
+- Accessibility-driven implementation
 
 ### Learning Outcomes
-- Advanced React patterns
-- Animation performance optimization
-- Database relationship design
-- Authentication security practices
+- Creating engaging educational experiences
+- Building performant web animations
+- Implementing secure user systems
+- Developing intuitive user interfaces
 
 ## 5. Future Enhancements (1-2 minutes)
 
