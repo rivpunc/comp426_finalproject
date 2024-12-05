@@ -72,5 +72,8 @@ The application will be available at `http://localhost:5000`
   - UI/UX Designer
   - Web Development Specialist
 
+## Project Presentation
+Watch our project presentation on YouTube: [WhaleWatch Presentation](https://www.youtube.com/watch?v=yazGSB48pLM)
+
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
